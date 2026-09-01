@@ -1,0 +1,33 @@
+programa
+{
+	
+	funcao inicio()
+	{
+		real notas[10]
+		real soma = 0.0
+		inteiro cont = 0
+		inteiro quant = 0
+		real media = 0.0
+		para ( inteiro i = 0; i < 10; i++)
+		{
+             escreva("Por favor, escreva as notas: \n")
+             leia(notas[i])
+             soma = soma + notas[i]
+              
+		}
+		media = (soma / 10)
+		para (inteiro i = 0; i < 10; i++){
+
+                
+             se (notas[i] > media)
+             {
+             	cont++
+             	escreva("A média foi, ", media, " e houve, ", cont, " notas acima da média \n")
+             }
+               senao 
+               {
+               	escreva("A média foi, ", media, " e houve, ", cont, " notas acima da média \n")
+               }
+		}
+	}
+}
