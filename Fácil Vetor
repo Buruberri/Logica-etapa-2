@@ -1,0 +1,17 @@
+programa
+{
+	
+	funcao inicio()
+	{
+	   inteiro v[8]
+	   inteiro receber
+
+	   para (inteiro i = 0; i < 8; i++)
+	   {
+	   escreva("Escreva um valor: \n")
+        leia(v[i])
+        receber = (v[i] * 2)
+        escreva(receber, "\n")
+	   }
+	}
+}
