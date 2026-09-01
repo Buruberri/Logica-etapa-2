@@ -1,0 +1,647 @@
+/// Final Fantasy VII
+programa 
+{
+	inclua biblioteca Util --> u
+	
+	funcao inicio()
+	{
+	   cadeia Item
+	   inteiro HP, HPInimigo, pocao, BeijoM, bombat, bomba, opcao, recarga, cura, explosao
+	   inteiro rolagem, ataqueH, defesaH, pocaochance, BeijoMchance, Tbombchance, Bombchance, specialheroi, ataqueHblk, ataqueSblk, blockH, blockS
+	   inteiro rolagemAb, ChefeAT, ChefeDF, recargaboss, Specialboss
+	   logico defesaHON, defesaSON
+
+	   inteiro ChanceAtkH, ChanceDefH, ChanceSpcH
+	   inteiro ChanceAtkS, ChanceDefS, ChanceSpcS
+	   
+	   HP = 1000
+	   HPInimigo = 50000
+	   pocao = 5
+	   BeijoM = 1
+	   bombat = 1
+	   bomba = 4
+	   ataqueH = u.sorteia(100, 412)
+        defesaH = 20
+	   ChefeAT = u.sorteia(22, 89)
+        ChefeDF = 12
+        specialheroi = u.sorteia(834, 3192)
+        Specialboss = u.sorteia(103, 223) 
+        pocaochance = 10
+        BeijoMchance = 99
+        Tbombchance = 95
+        Bombchance = 70
+        ChanceAtkH = 15
+        ChanceDefH = 70
+        ChanceSpcH = 5
+        ChanceAtkS = 5
+        ChanceDefS = 90
+        ChanceSpcS = 1
+        recarga = 0
+        recargaboss = 0
+        cura = 80
+        explosao = 1000
+	   
+	    escreva("Chefe final Sephiroth está em seu caminho e está preparando o meteoro que acabará com o planeta!\n") 
+
+	   enquanto (HP > 0 ou HPInimigo > 0) faca
+	    {
+	    escreva("Sua vida: ", HP, " HP. Sephiroth: ", HPInimigo, " HP. \n")
+	    escreva("\n")
+	    escreva("O que você gostaria de fazer?\n")
+	    escreva("1-Atacar\n")
+	    escreva("2-Usar escudo mágico de defesa\n")
+	    escreva("3-Usar item na mochila\n")
+	    escreva("4-Atacar com o especial\n")
+	    leia(opcao)
+
+	     limpa()
+
+          escolha(opcao)
+          {
+	      caso 1: 
+	      
+	       escreva("Você atacou!\n")
+	       rolagem = u.sorteia(1, 100)
+	        se (rolagem > ChanceAtkH)
+	       { se (defesaSON == falso)
+	        {
+	        	HPInimigo = HPInimigo - AtaqueH
+	        	escreva("Você causou", AtaqueH, " de dano! Sephiroth tem", HPInimigo, " de vida restante!")
+	        	recarga = recarga + 1
+	        	u.aguarde(5000)
+             limpa()
+             rolagem = u.sorteia(1, 100)
+                se (rolagemAb >= ChanceAtkS) 
+                {
+                 se (defesaHON == falso)
+                 {
+                 HP = HP - ChefeAT
+                 escreva("Sephiroth atacou! Você leva ", ChefeAT, " de dano!\n")
+                 recargaboss = recargaboss + 1
+                 }
+                 se (defesaHON == verdadeiro)
+                 {
+                  blockS = ChefeAT * 0.20
+                  ataqueSblk = ChefeAT - blockS
+                  HP = HP - ataqueSblk
+                  escreva("Você defende! Sephiroth atacou! Você leva ", ataqueSblk, " de dano!\n")
+                  recargaboss = recargaboss + 1
+                  defesaHON = falso
+                }
+               }
+                 
+                 senao se(rolagem >= ChanceDefS)
+                 {
+                  defesaSON = verdadeiro
+                 }
+                 senao se (rolagem >= ChanceSpcS e recargaboss == 10)
+                 {
+                  HP = HP - Specialboss
+                  escreva ("Sephiroth usou Supernova! É impossível defender-se! Você leva ", Specialboss, " de dano!\n")
+                 }
+                 senao se (rolagemAb >= ChanceSpcS e recargaboss < 10)
+                 {
+                 escreva("Sephiroth tentou usar Supernova! Mas não tem poder o suficiente...\n")
+                 }
+	          
+	        }
+	         se (defesaSON == verdadeiro)
+	         {
+	         	 blockH = AtaqueH * 0.12
+	         	 ataqueHblk = AtaqueH - blockH
+	         	 HPInimigo = HPInimigo - ataqueHblk
+	         	 escreva("Sephiroth defendeu! Você causou", ataqueHblk, " de dano! Sephiroth agora tem", HPInimigo, " de vida restante!")
+	        	recarga = recarga + 1
+	        	defesaSON = falso
+	        	u.aguarde(5000)
+             limpa()
+             rolagem = u.sorteia(1, 100)
+                se (rolagemAb >= ChanceAtkS) {
+                 se (defesaHON == falso)
+                 {
+                 HP = HP - ChefeAT
+                 escreva("Sephiroth atacou! Você leva ", ChefeAT, " de dano!\n")
+                 recargaboss = recargaboss + 1
+                 }
+                 se (defesaHON == verdadeiro)
+                 {
+                  blockS = ChefeAT * 0.20
+                  ataqueSblk = ChefeAT - blockS
+                  HP = HP - ataqueSblk
+                  escreva("Você defende! Sephiroth atacou! Você leva ", ataqueSblk, " de dano!\n")
+                  recargaboss = recargaboss + 1
+                  defesaHON = falso
+                }
+               }
+                 senao se (rolagem >= ChanceDefS)
+                 {
+                  defesaSON == verdadeiro
+                 }
+                 senao se (rolagem >= ChanceSpcS e recargaboss == 10)
+                 {
+                  HP = HP - Specialboss
+                  escreva ("Sephiroth usou Supernova! É impossível defender-se! Você leva ", Specialboss, " de dano!\n")
+                 }
+                 senao se (rolagemAb >= ChanceSpcS e recargaboss < 10)
+                 {
+                 escreva("Sephiroth tentou usar Supernova! Mas não tem poder o suficiente...\n")
+                 }
+	         }
+	       }
+	         senao se (rolagem <= ChanceAtk) 
+	        {
+	        	escreva("Você errou e não atingiu o inimigo!")
+	        	u.aguarde(5000)
+               limpa()
+               rolagem = u.sorteia(1, 100)
+                se (rolagemAb >= ChanceAtkS) {
+                 se (defesaHON == falso)
+                 {
+                 HP = HP - ChefeAT
+                 escreva("Sephiroth atacou! Você leva ", ChefeAT, " de dano!\n")
+                 recargaboss = recargaboss + 1
+                 }
+                 se (defesaHON == verdadeiro)
+                 {
+                  blockS = ChefeAT * 0.20
+                  ataqueSblk = ChefeAT - blockS
+                  HP = HP - ataqueSblk
+                  escreva("Você defende! Sephiroth atacou! Você leva ", ataqueSblk, " de dano!\n")
+                  recargaboss = recargaboss + 1
+                  defesaHON = falso
+                }
+               }
+                 
+                 senao se (rolagem >= ChanceDefS)
+                 {
+                  defesaSON == verdadeiro
+                 }
+                 
+                 senao se (rolagem >= ChanceSpcS e recargaboss == 10)
+                 {
+                  HP = HP - Specialboss
+                  escreva ("Sephiroth usou Supernova! É impossível defender-se! Você leva ", Specialboss, " de dano!\n")
+                 }
+                 senao se (rolagem >= ChanceSpcS e recargaboss < 10)
+                 {
+                 escreva("Sephiroth tentou usar Supernova! Mas não tem poder o suficiente...\n")
+                 }
+                 
+	        }
+	       
+	      
+
+	      caso 2: 
+	       
+             escreva("Você prepara para um ataque!\n")
+             defesaHON = verdadeiro
+             u.aguarde(5000)
+             limpa()
+             rolagem = u.sorteia(1, 100)
+                se (rolagemAb >= ChanceAtkS) {
+                 se (defesaHON == falso)
+                 {
+                 HP = HP - ChefeAT
+                 escreva("Sephiroth atacou! Você leva ", ChefeAT, " de dano!\n")
+                 recargaboss = recargaboss + 1
+                 }
+                 se (defesaHON == verdadeiro)
+                 {
+                  blockS = ChefeAT * 0.20
+                  ataqueSblk = ChefeAT - blockS
+                  HP = HP - ataqueSblk
+                  escreva("Você defende! Sephiroth atacou! Você leva ", ataqueSblk, " de dano!\n")
+                  recargaboss = recargaboss + 1
+                  defesaHON = falso
+                }
+               }
+                 
+                 senao se (rolagem >= ChanceDefS)
+                 {
+                  defesaSON == verdadeiro
+                 }
+                 
+                 senao se (rolagem >= ChanceSpcS e recargaboss == 10)
+                 {
+                  HP = HP - Specialboss
+                  escreva ("Sephiroth usou Supernova! É impossível defender-se! Você leva ", Specialboss, " de dano!\n")
+                 }
+                 senao se (rolagemAb >= ChanceSpcS e recargaboss < 10)
+                 {
+                 escreva("Sephiroth tentou usar Supernova! Mas não tem poder o suficiente...\n")
+                 }
+	       
+
+	      caso 3:
+	       
+	        rolagem = u.sorteia(1, 100)
+	        escreva("Escolha o item que deseja usar:\n")
+	        escreva("Poção\n")
+	        escreva("Beijo da Morte\n")
+	        escreva("Bomba Temporal\n")
+	        escreva("Bomba\n")
+	        leia(Item)
+
+	          se (Item == "Poção" e rolagem > pocaochance)
+	          {
+	            escreva("Você usou uma poção de cura e ganhou ", cura, " de vida!\n")
+	            HP = Hp + cura
+	            pocao = pocao - 1
+             u.aguarde(5000)
+             limpa()
+             rolagem = u.sorteia(1, 100)
+                se (rolagemAb >= ChanceAtkS) {
+                 se (defesaHON == falso)
+                 {
+                 HP = HP - ChefeAT
+                 escreva("Sephiroth atacou! Você leva ", ChefeAT, " de dano!\n")
+                 recargaboss = recargaboss + 1
+                 }
+                 se (defesaHON == verdadeiro)
+                 {
+                  blockS = ChefeAT * 0.20
+                  ataqueSblk = ChefeAT - blockS
+                  HP = HP - ataqueSblk
+                  escreva("Você defende! Sephiroth atacou! Você leva ", ataqueSblk, " de dano!\n")
+                  recargaboss = recargaboss + 1
+                  defesaHON = falso
+                }
+               }
+                 senao se (rolagem >= ChanceDefS)
+                 {
+                  defesaSON == verdadeiro
+                 }
+                 senao se (rolagem >= ChanceSpcS e recargaboss == 10)
+                 {
+                  HP = HP - Specialboss
+                  escreva ("Sephiroth usou Supernova! É impossível defender-se! Você leva ", Specialboss, " de dano!\n")
+                 }
+                 senao se (rolagemAb >= ChanceSpcS e recargaboss < 10)
+                 {
+                 escreva("Sephiroth tentou usar Supernova! Mas não tem poder o suficiente...\n")
+                 }
+	          }
+	           senao se (Item <- "Poção" e rolagem <= pocaochance ou pocao == 0)
+	           {
+	             escreva("Você usou uma poção mas deixou ela cair!\n")
+	             pocao = pocao - 1
+             u.aguarde(5000)
+             limpa()
+             rolagem = u.sorteia(1, 100)
+                se (rolagemAb >= ChanceAtkS) {
+                 se (defesaHON == falso)
+                 {
+                 HP = HP - ChefeAT
+                 escreva("Sephiroth atacou! Você leva ", ChefeAT, " de dano!\n")
+                 recargaboss = recargaboss + 1
+                 }
+                 se (defesaHON == verdadeiro)
+                 {
+                  blockS = ChefeAT * 0.20
+                  ataqueSblk = ChefeAT - blockS
+                  HP = HP - ataqueSblk
+                  escreva("Você defende! Sephiroth atacou! Você leva ", ataqueSblk, " de dano!\n")
+                  recargaboss = recargaboss + 1
+                  defesaHON = falso
+                }
+               }
+                 senao se (rolagem >= ChanceDefS)
+                 {
+                  defesaSON == verdadeiro
+                 }
+                 senao se (rolagem >= ChanceSpcS e recargaboss == 10)
+                 {
+                  HP = HP - Specialboss
+                  escreva ("Sephiroth usou Supernova! É impossível defender-se! Você leva ", Specialboss, " de dano!\n")
+                 }
+                 senao se (rolagemAb >= ChanceSpcS e recargaboss < 10)
+                 {
+                 escreva("Sephiroth tentou usar Supernova! Mas não tem poder o suficiente...\n")
+                 }
+	           }
+	          se (Item <- "Beijo da Morte" e rolagem > BeijoMchance)
+	          {
+	           HPInimigo = HPInimigo - HPInimigo
+	           escreva("Você usou o Beijo da Morte e o inimigo morreu\n")
+	           BeijoM = BeijoM - 1
+             u.aguarde(5000)
+             limpa()
+             rolagem = u.sorteia(1, 100)
+                se (rolagemAb >= ChanceAtkS) {
+                 se (defesaHON == falso)
+                 {
+                 HP = HP - ChefeAT
+                 escreva("Sephiroth atacou! Você leva ", ChefeAT, " de dano!\n")
+                 recargaboss = recargaboss + 1
+                 }
+                 se (defesaHON == verdadeiro)
+                 {
+                  blockS = ChefeAT * 0.20
+                  ataqueSblk = ChefeAT - blockS
+                  HP = HP - ataqueSblk
+                  escreva("Você defende! Sephiroth atacou! Você leva ", ataqueSblk, " de dano!\n")
+                  recargaboss = recargaboss + 1
+                  defesaHON = falso
+                }
+               }
+                 senao se (rolagem >= ChanceDefS)
+                 {
+                  defesaSON == verdadeiro
+                 }
+                 senao se (rolagem >= ChanceSpcS e recargaboss == 10)
+                 {
+                  HP = HP - Specialboss
+                  escreva ("Sephiroth usou Supernova! É impossível defender-se! Você leva ", Specialboss, " de dano!\n")
+                 }
+                 senao se (rolagemAb >= ChanceSpcS e recargaboss < 10)
+                 {
+                 escreva("Sephiroth tentou usar Supernova! Mas não tem poder o suficiente...\n")
+                 }
+	          }
+	           senao se (Item <- "Beijo da Morte" e rolagem <= BeijoMchance ou BeijoM == 0)
+	           {
+	             escreva("Você usou o Beijo da Morte mas não funcionou!\n")
+	             BeijoM = BeijoM - 1
+             u.aguarde(5000)
+             limpa()
+             rolagem = u.sorteia(1, 100)
+                se (rolagemAb >= ChanceAtkS) {
+                 se (defesaHON == falso)
+                 {
+                 HP = HP - ChefeAT
+                 escreva("Sephiroth atacou! Você leva ", ChefeAT, " de dano!\n")
+                 recargaboss = recargaboss + 1
+                 }
+                 se (defesaHON == verdadeiro)
+                 {
+                  blockS = ChefeAT * 0.20
+                  ataqueSblk = ChefeAT - blockS
+                  HP = HP - ataqueSblk
+                  escreva("Você defende! Sephiroth atacou! Você leva ", ataqueSblk, " de dano!\n")
+                  recargaboss = recargaboss + 1
+                  defesaHON = falso
+                }
+               }
+                 senao se (rolagem >= ChanceDefS)
+                 {
+                  defesaSON == verdadeiro
+                 }
+                 senao se (rolagem >= ChanceSpcS e recargaboss == 10)
+                 {
+                  HP = HP - Specialboss
+                  escreva ("Sephiroth usou Supernova! É impossível defender-se! Você leva ", Specialboss, " de dano!\n")
+                 }
+                 senao se (rolagemAb >= ChanceSpcS e recargaboss < 10)
+                 {
+                 escreva("Sephiroth tentou usar Supernova! Mas não tem poder o suficiente...\n")
+                 }
+	           }
+	          se (Item <- "Bomba Temporal" e rolagem > Tbombchance)
+	          {
+                 HPInimigo = HPInimigo - (HPInimigo / 2)
+                 escreva("Você removeu 50% da vida do inimigo!\n")
+                 bombat = bombat - 1
+             u.aguarde(5000)
+             limpa()
+             rolagem = u.sorteia(1, 100)
+                se (rolagemAb >= ChanceAtkS) {
+                 se (defesaHON == falso)
+                 {
+                 HP = HP - ChefeAT
+                 escreva("Sephiroth atacou! Você leva ", ChefeAT, " de dano!\n")
+                 recargaboss = recargaboss + 1
+                 }
+                 se (defesaHON == verdadeiro)
+                 {
+                  blockS = ChefeAT * 0.20
+                  ataqueSblk = ChefeAT - blockS
+                  HP = HP - ataqueSblk
+                  escreva("Você defende! Sephiroth atacou! Você leva ", ataqueSblk, " de dano!\n")
+                  recargaboss = recargaboss + 1
+                  defesaHON = falso
+                }
+               }
+                 senao se (rolagem >= ChanceDefS)
+                 {
+                  defesaSON == verdadeiro
+                 }
+                 senao se (rolagem >= ChanceSpcS e recargaboss == 10)
+                 {
+                  HP = HP - Specialboss
+                  escreva ("Sephiroth usou Supernova! É impossível defender-se! Você leva ", Specialboss, " de dano!\n")
+                 }
+                 senao se (rolagemAb >= ChanceSpcS e recargaboss < 10)
+                 {
+                 escreva("Sephiroth tentou usar Supernova! Mas não tem poder o suficiente...\n")
+                 }
+	          }
+	          senao se (Item <- "Bomba Temporal" e rolagem <= Tbombchance ou bombat == 0)
+	          {
+	            escreva("Você usou a bomba temporal mas o inimigo não envelheceu!\n")
+	            bombat = bombat - 1
+             u.aguarde(5000)
+             limpa()
+             rolagem = u.sorteia(1, 100)
+                se (rolagemAb >= ChanceAtkS) {
+                 se (defesaHON == falso)
+                 {
+                 HP = HP - ChefeAT
+                 escreva("Sephiroth atacou! Você leva ", ChefeAT, " de dano!\n")
+                 recargaboss = recargaboss + 1
+                 }
+                 se (defesaHON == verdadeiro)
+                 {
+                  blockS = ChefeAT * 0.20
+                  ataqueSblk = ChefeAT - blockS
+                  HP = HP - ataqueSblk
+                  escreva("Você defende! Sephiroth atacou! Você leva ", ataqueSblk, " de dano!\n")
+                  recargaboss = recargaboss + 1
+                  defesaHON = falso
+                }
+               }
+                 senao se (rolagem >= ChanceDefS)
+                 {
+                  defesaSON == verdadeiro
+                 }
+                 senao se (rolagem >= ChanceSpcS e recargaboss == 10)
+                 {
+                  HP = HP - Specialboss
+                  escreva ("Sephiroth usou Supernova! É impossível defender-se! Você leva ", Specialboss, " de dano!\n")
+                 }
+                 senao se (rolagemAb >= ChanceSpcS e recargaboss < 10)
+                 {
+                 escreva("Sephiroth tentou usar Supernova! Mas não tem poder o suficiente...\n")
+                 }
+	          }
+	          se (Item <- "Bomba" e rolagem > bombchance)
+	          {
+	            HPInimigo = HPInimigo - explosao
+	            escreva("Você usou uma bomba e acertou o inimigo!", explosao, " de dano foi recebido pelo inimigo!\n")
+	            Bomba = Bomba - 1
+             u.aguarde(5000)
+             limpa()
+             rolagem = u.sorteia(1, 100)
+                se (rolagemAb >= ChanceAtkS) {
+                 se (defesaHON == falso)
+                 {
+                 HP = HP - ChefeAT
+                 escreva("Sephiroth atacou! Você leva ", ChefeAT, " de dano!\n")
+                 recargaboss = recargaboss + 1
+                 }
+                 se (defesaHON == verdadeiro)
+                 {
+                  blockS = ChefeAT * 0.20
+                  ataqueSblk = ChefeAT - blockS
+                  HP = HP - ataqueSblk
+                  escreva("Você defende! Sephiroth atacou! Você leva ", ataqueSblk, " de dano!\n")
+                  recargaboss = recargaboss + 1
+                  defesaHON = falso
+                }
+               }
+                 senao se (rolagem >= ChanceDefS)
+                 {
+                  defesaSON == verdadeiro
+                 }
+                 senao se (rolagem >= ChanceSpcS e recargaboss == 10)
+                 {
+                  HP = HP - Specialboss
+                  escreva ("Sephiroth usou Supernova! É impossível defender-se! Você leva ", Specialboss, " de dano!\n")
+                 }
+                 senao se (rolagemAb >= ChanceSpcS e recargaboss < 10)
+                 {
+                 escreva("Sephiroth tentou usar Supernova! Mas não tem poder o suficiente...\n")
+                 }
+	          }
+	          senao se (Item <- "Bomba" e rolagem > bombchance ou Bomba == 0)
+	          {
+	            escreva("Você usou a bomba mas ela não explodiu!\n")
+	            Bomba = Bomba - 1
+             u.aguarde(5000)
+             limpa()
+             rolagem = u.sorteia(1, 100)
+                se (rolagemAb >= ChanceAtkS) {
+                 se (defesaHON == falso)
+                 {
+                 HP = HP - ChefeAT
+                 escreva("Sephiroth atacou! Você leva ", ChefeAT, " de dano!\n")
+                 recargaboss = recargaboss + 1
+                 }
+                 se (defesaHON == verdadeiro)
+                 {
+                  blockS = ChefeAT * 0.20
+                  ataqueSblk = ChefeAT - blockS
+                  HP = HP - ataqueSblk
+                  escreva("Você defende! Sephiroth atacou! Você leva ", ataqueSblk, " de dano!\n")
+                  recargaboss = recargaboss + 1
+                  defesaHON = falso
+                }
+               }
+                 senao se (rolagem >= ChanceDefS)
+                 {
+                  defesaSON == verdadeiro
+                 }
+                 senao se (rolagem >= ChanceSpcS e recargaboss == 10)
+                 {
+                  HP = HP - Specialboss
+                  escreva ("Sephiroth usou Supernova! É impossível se defender! Você leva ", Specialboss, " de dano!\n")
+                 }
+                 senao se (rolagemAb >= ChanceSpcS e recargaboss < 10)
+                 {
+                 escreva("Sephiroth tentou usar Supernova! Mas não tem poder o suficiente...\n")
+                 }
+	          }
+	       
+
+	        caso 4:
+	        
+             rolagem = u.sorteia(1, 100)
+	        se (recarga >= 10 e rolagem > ChanceSpcH)
+	        {
+	        	escreva("Você usou o seu special e o inimigo recebeu ", specialheroi, " de dano!\n")
+	        	HPInimigo = HPInimigo - specialheroi
+	        	recarga = 0
+	        	u.aguarde(5000)
+	        	limpa()
+             rolagem = u.sorteia(1, 100)
+                se (rolagemAb >= ChanceAtkS) {
+                 se (defesaHON == falso)
+                 {
+                 HP = HP - ChefeAT
+                 escreva("Sephiroth atacou! Você leva ", ChefeAT, " de dano!\n")
+                 recargaboss = recargaboss + 1
+                 }
+                 se (defesaHON == verdadeiro)
+                 {
+                  blockS = ChefeAT * 0.20
+                  ataqueSblk = ChefeAT - blockS
+                  HP = HP - ataqueSblk
+                  escreva("Você defende! Sephiroth atacou! Você leva ", ataqueSblk, " de dano!\n")
+                  recargaboss = recargaboss + 1
+                  defesaHON = falso
+                }
+               }
+                 senao se (rolagem >= ChanceDefS)
+                 {
+                  defesaSON == verdadeiro
+                 }
+                 senao se (rolagem >= ChanceSpcS e recargaboss == 10)
+                 {
+                  HP = HP - Specialboss
+                  escreva ("Sephiroth usou Supernova! É impossível defender-se! Você leva ", Specialboss, " de dano!\n")
+                 }
+                 senao se (rolagemAb >= ChanceSpcS e recargaboss < 10)
+                 {
+                 escreva("Sephiroth tentou usar Supernova! Mas não tem poder o suficiente...\n")
+                 }
+	        }
+	        se (recarga < 10 ou rolagem <= ChanceSpcH)
+	        {
+	        	escreva("Você tentou usar o seu special, mas falhou!")
+	        	recarga = 0
+			u.aguarde(5000)
+             limpa()
+             rolagem = u.sorteia(1, 100)
+                se (rolagemAb >= ChanceAtkS) {
+                 se (defesaHON == falso)
+                 {
+                 HP = HP - ChefeAT
+                 escreva("Sephiroth atacou! Você leva ", ChefeAT, " de dano!\n")
+                 recargaboss = recargaboss + 1
+                 }
+                 se (defesaHON == verdadeiro)
+                 {
+                  blockS = ChefeAT * 0.20
+                  ataqueSblk = ChefeAT - blockS
+                  HP = HP - ataqueSblk
+                  escreva("Você defende! Sephiroth atacou! Você leva ", ataqueSblk, " de dano!\n")
+                  recargaboss = recargaboss + 1
+                  defesaHON = falso
+                }
+               }
+                 senao se (rolagem >= ChanceDefS)
+                 {
+                  defesaSON == verdadeiro
+                 }
+                 senao se (rolagem >= ChanceSpcS e recargaboss == 10)
+                 {
+                  HP = HP - Specialboss
+                  escreva ("Sephiroth usou Supernova! É impossível defender-se! Você leva ", Specialboss, " de dano!\n")
+                 }
+                 senao se (rolagemAb >= ChanceSpcS e recargaboss < 10)
+                 {
+                 escreva("Sephiroth tentou usar Supernova! Mas não tem poder o suficiente...\n")
+                 }
+	        }
+	     }
+	    }
+	      //enquanto (HP <= 0) faca
+	     // {
+	     // escreva("Sua vida caiu abaixo de 0, você morreu!\n")
+	     // }
+	     
+	    //  enquanto (HPInimigo <= 0) faca
+	    //  {
+	    //  escreva("Você derrotou Sephiroth e salvou o planeta!\n")
+	    //  }
+}
+}
